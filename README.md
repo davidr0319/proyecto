@@ -1,16 +1,16 @@
-#Prueba Técnica desarrollador Backend
+# Prueba Técnica desarrollador Backend
 
-######David Esteban Ramirez Cardona
-######Ingeniero de Sistemas
-######C.C 1088017828
+###### David Esteban Ramirez Cardona
+###### Ingeniero de Sistemas
+###### C.C 1088017828
 
 #### Para instalar las dependencias correspondientes, se debe utilizar el archivo *requeriments.txt* que se encuentra en el repositorio.
 
-##Prueba 1: Algoritmia
+## Prueba 1: Algoritmia
 Para correr la primera parte de la prueba, basta con ejecutar el archivo *prueba1.py* o desde una linea de comandos mediante la instrucción *python prueba1.py*.
 Una vez ejecutado el archivo py, se solicita al usuario defina el tamaño del vector, seguido de los valores que almacenará el mismo.
 
-##Prueba 2: Manejo de Python
+## Prueba 2: Manejo de Python
 Para ejecutar el archivo referente a la segunda parte de la prueba (*main.py*), primero se deben tener en cuenta los siguientes requisitos:
 * Se debe contar con un sistema de gestión de bases de datos y un servidor web, en mi caso, utilicé XAMPP para gestionar la base de datos con MySQL de forma local y Apache para el servidor web.
 * Se debe crear una base de datos con el nombre *fifa* y una tabla con nombre *jugadores* que contenga 2 columnas; la primera un id identificador automatico y la segunda un campo *jugador* de tipo JSON NOT NULL, a continuación dejo la sentencia sql para crearla:
