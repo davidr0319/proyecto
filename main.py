@@ -7,16 +7,16 @@ from flask import Flask, request, jsonify
 #Servidor flask
 app = Flask(__name__)
 
-########################
 #Creación de la conexión con la base de datos local
 db = pymysql.connect(host="localhost", port=3308, user="root", password="",db="fifa")
 cursor = db.cursor()
 
-#Ruta del servidor para consultar jugadores
+#Ruta del servidor para consultar jugadores en la base de datos
 @app.route('/listar')
 def verJugadores(conn=db):
 	try:
 		cursor = conn.cursor()
+		#Ejecucion sentencia sql para consulta
 		cursor.execute('select * from jugadores')
 		datos=cursor.fetchall()
 		print (datos)
