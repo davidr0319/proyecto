@@ -1,12 +1,33 @@
+#librerias
 import requests
 import json
 import pymysql
+from flask import Flask, request, jsonify
 
+#Servidor flask
+app = Flask(__name__)
+
+########################
+#Creación de la conexión con la base de datos local
 db = pymysql.connect(host="localhost", port=3308, user="root", password="",db="fifa")
 cursor = db.cursor()
 
+#Ruta del servidor para consultar jugadores
+@app.route('/listar')
+def verJugadores(conn=db):
+	try:
+		cursor = conn.cursor()
+		cursor.execute('select * from jugadores')
+		datos=cursor.fetchall()
+		print (datos)
+		return jsonify(datos)
+	except Exception as ex:
+		return "Error"
+
+#Función para almacenar los datos recibidos de la API
 def save_data(data,conn):
     cursor = conn.cursor()
+    #sentencia sql que enviamos al servidor bd
     cursor.execute('insert into jugadores(jugador) values(%s)', (data,))
     conn.commit()
     #conn.close()
@@ -18,30 +39,29 @@ def get_player(url="https://www.easports.com/fifa/ultimate-team/api/fut/item?pag
 
 	#Codigo 200 que representa respuesta exitosa del servidor
 	if response.status_code == 200:
-		#print(response.content)
+
 		#Capturamos los items de la API
 		content = response.json()
 		items = content.get('items', [])
 		#print(items)
 
+		#Si encontramos items desde la API
 		if items:
-			#cursor = db.cursor()
+			#Vamos añadiendo cada item 1 por 1
 			for player in items:
 				jugador = player
-				#print(jugador)
-				#nombre = jugador.get('firstName', [])
-				#print(nombre)
-				# sql = "INSERT INTO jugadores(jugador) values(jugador)"
-				# cursor.execute(sql)
-				# db.commit()
-				#print(json.dumps(jugador))
 				save_data(json.dumps(jugador), db)
+
+
 
 
 #Iniciar el servidor 
 if __name__ == '__main__':
+	#url de la api que vamos a consumir
 	url = "https://www.easports.com/fifa/ultimate-team/api/fut/item?page=1"
 	
+	#Recogemos los datos de la api y los subimos a nuestra bd
 	get_player(url)
 
-		#print (content)
+	#Iniciamos el servidor flask
+	app.run(debug = True, use_reloader=False)
